@@ -64,7 +64,7 @@ for(let i = -40;i<40;i = i +0.01){
     //zavendson te gjitha x qe mund ti gjej ne string me i (prej -40 deri 40)
     output = evaluatedParam.replaceAll('x',i + '');
     //libraria mathjs e zgjedh detyren e japur ne String
-    y = math.evaluate(output);
+    y = math.evaluate(output) * -1;
     //ia dergon funksionit draw i cili vizaton
     draw(i,y,heightMes,widthMes, ngjyraQeDergohet);
 
