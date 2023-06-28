@@ -6,31 +6,48 @@ const math = require('mathjs');
 
 const canvas = document.querySelector('#canvas');
 
-var canvasi = document.getElementById('canvas');
+//var canvasi = document.getElementById('canvas');
 
-canvas.width = screen.width;
+//canvas.width = screen.width;
 
 const ctx = canvas.getContext('2d');
+
+canvas.width = screen.width - (screen.width*10)/100;
 
 ctx.scale(0.1,0.1);
 
 let print = console.log;
 
-function randomNgjyra(){
-    let ngjyraIndex = Math.floor(Math.random() * 4);
+
+document.getElementById('submitFunction').onclick = function(){
+    let funksioni = document.getElementById('function').value;
+    drawKodi(funksioni);
+    document.getElementById('function').value = '';
+}
+
+document.getElementById('clearButton').onclick = function(){
+    clear();
+}
+
+let ngjyraRradhes = 0;
+function getNgjyra(){
     let ngjyra = ['red','black','purple','green','olive'];
-    return ngjyra[ngjyraIndex];
+    if(ngjyraRradhes == 5){
+        ngjyraRradhes = 0;
+    }
+    return ngjyra[ngjyraRradhes++];
+   
 }
 
 
 
-drawKodi('sin(x)');
-drawKodi('cos(x)');
-drawKodi('0');
+//drawKodi('sin(x)');
+//drawKodi('cos(x)');
+//drawKodi('0');
 
 function drawKodi(evaluatedParam){
     //e merr ni ngjyr random qe ko mu ba fill mavon
-    let ngjyraQeDergohet = randomNgjyra();
+    let ngjyraQeDergohet = getNgjyra();
     //ia jep ngjyren tcilen ko me vizatu
     ctx.strokeStyle = ngjyraQeDergohet;
     //vleren qe ipet si parameter ne formen string te pa zgjidhur te detyres ia jep output
@@ -67,13 +84,19 @@ function draw(x,y,heightMes,widthMes, ngjyraQeDergohet) {
     ctx.fillStyle=ngjyraQeDergohet;
     ctx.fill();
     ctx.stroke();
+    
+    
+    
 
 
 
 }
 
-// Usage example:
-
+function clear(){
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width * 10, canvas.height * 10);
+         
+}
 
 
 
