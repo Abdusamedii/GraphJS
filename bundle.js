@@ -1,7 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
-//TODO CHANGE FROM CANVAS 2d TO SVG
 const math = require('mathjs');
 
 const canvas = document.querySelector('#canvas');
@@ -12,12 +11,32 @@ const canvas = document.querySelector('#canvas');
 
 const ctx = canvas.getContext('2d');
 
+let vleratKyqe = [-1,0,1];
 canvas.width = screen.width - (screen.width*10)/100;
 
 ctx.scale(0.1,0.1);
 
 let print = console.log;
 
+drawBoshtet();
+
+function drawBoshtet(){
+  ctx.beginPath();
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 10;
+
+  ctx.moveTo(0,canvas.height/2 * 10);
+  ctx.lineTo(canvas.width * 10,canvas.height/2 * 10);
+
+  //height/2 *10,0
+  //height/2 * 10,width/2*10
+  ctx.moveTo(canvas.width/2*10,0);
+  ctx.lineTo(canvas.width/2*10,canvas.height*10)
+  ctx.stroke();
+
+
+  ctx.lineWidth = 1;
+}
 
 document.getElementById('submitFunction').onclick = function(){
     let funksioni = document.getElementById('function').value;
@@ -43,7 +62,7 @@ function getNgjyra(){
 
 //drawKodi('sin(x)');
 //drawKodi('cos(x)');
-//drawKodi('0');
+//drawKodi('x');
 
 function drawKodi(evaluatedParam){
     //e merr ni ngjyr random qe ko mu ba fill mavon
@@ -69,21 +88,33 @@ for(let i = -40;i<40;i = i +0.01){
     draw(i,y,heightMes,widthMes, ngjyraQeDergohet);
 
     }
+    for(let i = -1;i<2;i++){
+        let vleratKyqeText = evaluatedParam.replaceAll('x',i + '')
+    }
 }
-
 
 
 
 function draw(x,y,heightMes,widthMes, ngjyraQeDergohet) {
     x = x *1000;
     y = y *1000;
-    y = y +heightMes;
-    x = x + widthMes;
     ctx.beginPath();
+    
+    y = y +heightMes - 80;
+    x = x + widthMes - 100;
+    
+    if(y%1 == 0){
+      ctx.strokeStyle = 'black';
+      ctx.ellipse((x),(y),50,50,0,0,2*Math.Pi);
+      ctx.strokeStyle = ngjyraQeDergohet;
+    }
+
     ctx.ellipse(x, y, 20, 20, 0, 0, 2 * Math.PI);
     ctx.fillStyle=ngjyraQeDergohet;
     ctx.fill();
+    
     ctx.stroke();
+    
     
     
     
@@ -95,9 +126,9 @@ function draw(x,y,heightMes,widthMes, ngjyraQeDergohet) {
 function clear(){
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width * 10, canvas.height * 10);
+    drawBoshtet();
          
 }
-
 
 
 },{"mathjs":926}],3:[function(require,module,exports){

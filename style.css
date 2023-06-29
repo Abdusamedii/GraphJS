@@ -18,3 +18,48 @@ body{
     display: flex;
     justify-content: center;
 }
+h1{
+    color: white;
+    position: relative;
+    margin-bottom: 10px;
+}
+button{
+    position: absolute;
+}
+textarea{
+    position: absolute;
+}
+#clearButton{
+    margin-left: 300px;
+    margin-top: 5px;
+    width: 80px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+#submitFunction{
+    margin-top: 5px;
+    margin-left: 120px;
+    width: 80px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+#textAndButton{
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    z-index: -1;
+    
+}
+#labelStyle{
+    margin-bottom: 5px;
+    text-align: center;
+    color: white;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+#function{
+    width: 500px;
+    height: 25px;
+}
