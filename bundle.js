@@ -89,7 +89,7 @@ function drawKodi(evaluatedParam){
 
     let widthMes = ((canvas.clientWidth)*10)/2;
 
-for(let i = -40;i<40;i = i +0.01){
+for(let i = -8;i<8;i = i +0.01){
     //zavendson te gjitha x qe mund ti gjej ne string me i (prej -40 deri 40)
     output = evaluatedParam.replaceAll('x',i + '');
     //libraria mathjs e zgjedh detyren e japur ne String
@@ -108,14 +108,18 @@ for(let i = -40;i<40;i = i +0.01){
 function draw(x,y,heightMes,widthMes, ngjyraQeDergohet) {
     x = x *1000;
     y = y *1000;
+    
     ctx.beginPath();
     
     y = y +heightMes - 80;
     x = x + widthMes - 100;
     
+    print(y);
     if(y%1 == 0){
-      ctx.strokeStyle = 'black';
+      print(y);
+      ctx.fillStyle = 'black';
       ctx.ellipse((x),(y),50,50,0,0,2*Math.Pi);
+      ctx.fill();
       ctx.strokeStyle = ngjyraQeDergohet;
     }
 
