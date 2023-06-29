@@ -20,6 +20,8 @@ let print = console.log;
 
 drawBoshtet();
 
+clear();
+
 function drawBoshtet(){
   ctx.beginPath();
   ctx.strokeStyle = 'black';
@@ -47,6 +49,14 @@ document.getElementById('submitFunction').onclick = function(){
 document.getElementById('clearButton').onclick = function(){
     clear();
 }
+document.getElementById('function').addEventListener("keypress", function(event){
+  if(event.key === "Enter"){
+    let funksioni = document.getElementById('function').value;
+    drawKodi(funksioni);
+    document.getElementById('function').value = '';
+  }
+});
+
 
 let ngjyraRradhes = 0;
 function getNgjyra(){
