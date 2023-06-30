@@ -17,6 +17,15 @@ body{
 #canvasDiv{
     display: flex;
     justify-content: center;
+    position: relative;
+    margin-top: 25%;
+    z-index: -5;
+}
+#textInsideCanvas{
+    display: flex;
+    justify-content: left;  
+    color: black;
+    position: absolute;
 }
 h1{
     color: white;
@@ -49,7 +58,7 @@ textarea{
     bottom: 20px;
     transform: translate(-50%, -50%);
     margin: 0 auto;
-    z-index: -1;
+    z-index: 1;
     
 }
 #labelStyle{

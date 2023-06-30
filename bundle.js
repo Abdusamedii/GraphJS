@@ -18,6 +18,10 @@ ctx.scale(0.1,0.1);
 
 let print = console.log;
 
+var htmlDoc = document.createElement('h1');
+
+let containXCount = 0;
+
 drawBoshtet();
 
 clear();
@@ -30,30 +34,36 @@ function drawBoshtet(){
   ctx.moveTo(0,canvas.height/2 * 10);
   ctx.lineTo(canvas.width * 10,canvas.height/2 * 10);
 
-  //height/2 *10,0
-  //height/2 * 10,width/2*10
   ctx.moveTo(canvas.width/2*10,0);
   ctx.lineTo(canvas.width/2*10,canvas.height*10)
   ctx.stroke();
 
 
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 1; 
+
 }
 
 document.getElementById('submitFunction').onclick = function(){
     let funksioni = document.getElementById('function').value;
     drawKodi(funksioni);
     document.getElementById('function').value = '';
+    containXCount = 0;
 }
 
 document.getElementById('clearButton').onclick = function(){
     clear();
+    containXCount =0;
 }
 document.getElementById('function').addEventListener("keypress", function(event){
   if(event.key === "Enter"){
     let funksioni = document.getElementById('function').value;
     drawKodi(funksioni);
     document.getElementById('function').value = '';
+    containXCount =0;
+  }
+  if(event.key === "`"){
+    clear();
+    containXCount =0;
   }
 });
 
@@ -70,9 +80,6 @@ function getNgjyra(){
 
 
 
-//drawKodi('sin(x)');
-//drawKodi('cos(x)');
-//drawKodi('x');
 
 function drawKodi(evaluatedParam){
     //e merr ni ngjyr random qe ko mu ba fill mavon
@@ -89,41 +96,57 @@ function drawKodi(evaluatedParam){
 
     let widthMes = ((canvas.clientWidth)*10)/2;
 
+    let doesItCotainX = true;
+
+    if(!output.includes('x')){
+      doesItCotainX = false;
+    }
+    else{
+      doesItCotainX = true;
+    }
 for(let i = -8;i<8;i = i +0.01){
-    //zavendson te gjitha x qe mund ti gjej ne string me i (prej -40 deri 40)
-    output = evaluatedParam.replaceAll('x',i + '');
+    //zavendson te gjitha x qe mund ti gjej ne string me i (prej -8 deri 8)
+    
+    output = evaluatedParam.replaceAll('x','(' + i + ')');
     //libraria mathjs e zgjedh detyren e japur ne String
-    y = math.evaluate(output) * -1;
+    
+    y = math.evaluate(output);
+
+    if(math.evaluate(output).toFixed(4)%1==0){
+      if(doesItCotainX){
+        containXCount++;
+        draw(i,y,heightMes,widthMes, 'black',50);
+
+        
+      }
+      else{
+        draw(i,y,heightMes,widthMes, ngjyraQeDergohet,20);
+      }
+      
+    }
+    else{
+      draw(i,y,heightMes,widthMes, ngjyraQeDergohet,20);
+    }
     //ia dergon funksionit draw i cili vizaton
-    draw(i,y,heightMes,widthMes, ngjyraQeDergohet);
+    
 
     }
-    for(let i = -1;i<2;i++){
-        let vleratKyqeText = evaluatedParam.replaceAll('x',i + '')
-    }
+    // te qekjo pjes ki me kqyr a jan tplota
+    
 }
 
 
 
-function draw(x,y,heightMes,widthMes, ngjyraQeDergohet) {
+function draw(x,y,heightMes,widthMes, ngjyraQeDergohet,size) {
     x = x *1000;
-    y = y *1000;
+    y = y *-1000;
     
     ctx.beginPath();
     
     y = y +heightMes - 80;
     x = x + widthMes - 100;
-    
-    print(y);
-    if(y%1 == 0){
-      print(y);
-      ctx.fillStyle = 'black';
-      ctx.ellipse((x),(y),50,50,0,0,2*Math.Pi);
-      ctx.fill();
-      ctx.strokeStyle = ngjyraQeDergohet;
-    }
 
-    ctx.ellipse(x, y, 20, 20, 0, 0, 2 * Math.PI);
+    ctx.ellipse(x, y, size, size, 0, 0, 2 * Math.PI);
     ctx.fillStyle=ngjyraQeDergohet;
     ctx.fill();
     
