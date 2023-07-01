@@ -1,169 +1,97 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
+
+
+
+
+
+
 const math = require('mathjs');
-
-const canvas = document.querySelector('#canvas');
-
-//var canvasi = document.getElementById('canvas');
-
-//canvas.width = screen.width;
-
-const ctx = canvas.getContext('2d');
-
-let vleratKyqe = [-1,0,1];
-canvas.width = screen.width - (screen.width*10)/100;
-
-ctx.scale(0.1,0.1);
 
 let print = console.log;
 
-let containXCount = 0;
-
-drawBoshtet();
-
-clear();
-
-function drawBoshtet(){
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.lineWidth = 10;
-
-  ctx.moveTo(0,canvas.height/2 * 10);
-  ctx.lineTo(canvas.width * 10,canvas.height/2 * 10);
-
-  ctx.moveTo(canvas.width/2*10,0);
-  ctx.lineTo(canvas.width/2*10,canvas.height*10)
-  ctx.stroke();
-
-
-  ctx.lineWidth = 1; 
-
+document.getElementById('solveButton').onclick = function(){
+  sendToSolve();
 }
 
-document.getElementById('submitFunction').onclick = function(){
-    let funksioni = document.getElementById('function').value;
-    drawKodi(funksioni);
-    document.getElementById('function').value = '';
-    containXCount = 0;
-}
-
-document.getElementById('clearButton').onclick = function(){
-    clear();
-    containXCount =0;
-}
-document.getElementById('function').addEventListener("keypress", function(event){
+document.getElementById('funksioni').addEventListener("keypress", function(event){
   if(event.key === "Enter"){
-    let funksioni = document.getElementById('function').value;
-    drawKodi(funksioni);
-    document.getElementById('function').value = '';
-    containXCount =0;
+    sendToSolve();
   }
-  if(event.key === "`"){
-    clear();
-    containXCount =0;
+
+});
+document.getElementById('tentonNeValue').addEventListener("keypress", function(event){
+  if(event.key === "Enter"){
+    sendToSolve();
   }
+
 });
 
+function sendToSolve(){
+  
+  let tentonNe = document.getElementById('tentonNeValue').value;
 
-let ngjyraRradhes = 0;
-function getNgjyra(){
-    let ngjyra = ['red','black','purple','green','olive'];
-    if(ngjyraRradhes == 5){
-        ngjyraRradhes = 0;
-    }
-    return ngjyra[ngjyraRradhes++];
-   
+
+  document.getElementById('tentonNeValue').value = '';
+
+
+  let funksioni = document.getElementById('funksioni').value;
+
+
+  document.getElementById('funksioni').value = '';
+
+
+  print(tentonNe + ' ' + funksioni);
+
+
+  solve(tentonNe,funksioni);
+  
+}
+
+let output;
+
+function solve(tentonNe,funksioni){
+  if(tentonNe === 'inf'){
+      tentonNe = 1000000;
+  }
+  output = tentonNe + '.000000000001';
+
+
+  tentonNe = math.evaluate(output);
+
+
+  output = funksioni.replaceAll('x','(' + (tentonNe) + ')');
+
+  let limitiPerfundim = math.evaluate(output).toFixed(2);
+  if(limitiPerfundim >= 1000000){
+    limitiPerfundim = 'infinit';
+  }
+    paraqitZgjidhjen(limitiPerfundim);
+
+}
+
+function paraqitZgjidhjen(text){
+  document.getElementById('textOutput').innerHTML = text;
+  //document.body.appendChild(h);
 }
 
 
 
 
-function drawKodi(evaluatedParam){
-    //e merr ni ngjyr random qe ko mu ba fill mavon
-    let ngjyraQeDergohet = getNgjyra();
-    //ia jep ngjyren tcilen ko me vizatu
-    ctx.strokeStyle = ngjyraQeDergohet;
-    //vleren qe ipet si parameter ne formen string te pa zgjidhur te detyres ia jep output
-    let output = evaluatedParam;
-    // e krijon nje variabel te pa inicializuar qe e merr vleren e stringut te zgjidhur
-    let y;
-
-    //perdoren per ta gjetur mesin e canvasit
-    let heightMes = ((canvas.clientHeight)*10)/2;
-
-    let widthMes = ((canvas.clientWidth)*10)/2;
-
-    let doesItCotainX = true;
-
-    if(!output.includes('x')){
-      doesItCotainX = false;
-    }
-    else{
-      doesItCotainX = true;
-    }
-for(let i = -8;i<8;i = i +0.01){
-    //zavendson te gjitha x qe mund ti gjej ne string me i (prej -8 deri 8)
-    
-    output = evaluatedParam.replaceAll('x','(' + i + ')');
-    //libraria mathjs e zgjedh detyren e japur ne String
-    
-    y = math.evaluate(output);
-
-    if(math.evaluate(output).toFixed(4)%1==0){
-      if(doesItCotainX){
-        containXCount++;
-        draw(i,y,heightMes,widthMes, 'black',50);
-
-        
-      }
-      else{
-        draw(i,y,heightMes,widthMes, ngjyraQeDergohet,20);
-      }
-      
-    }
-    else{
-      draw(i,y,heightMes,widthMes, ngjyraQeDergohet,20);
-    }
-    //ia dergon funksionit draw i cili vizaton
-    
-
-    }
-    // te qekjo pjes ki me kqyr a jan tplota
-    
-}
 
 
 
-function draw(x,y,heightMes,widthMes, ngjyraQeDergohet,size) {
-    x = x *1000;
-    y = y *-1000;
-    
-    ctx.beginPath();
-    
-    y = y +heightMes - 80;
-    x = x + widthMes - 100;
-
-    ctx.ellipse(x, y, size, size, 0, 0, 2 * Math.PI);
-    ctx.fillStyle=ngjyraQeDergohet;
-    ctx.fill();
-    
-    ctx.stroke();
-    
-    
-    
-    
 
 
 
-}
 
-function clear(){
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width * 10, canvas.height * 10);
-    drawBoshtet();
-         
-}
+
+
+
+
+
+
 
 
 },{"mathjs":926}],3:[function(require,module,exports){

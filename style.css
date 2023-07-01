@@ -17,15 +17,8 @@ body{
 #canvasDiv{
     display: flex;
     justify-content: center;
-    position: relative;
     margin-top: 25%;
     z-index: -5;
-}
-#textInsideCanvas{
-    display: flex;
-    justify-content: left;  
-    color: black;
-    position: absolute;
 }
 h1{
     color: white;
@@ -71,4 +64,24 @@ textarea{
 #function{
     width: 500px;
     height: 25px;
+}
+#NavBarLinks{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    gap: 2rem;
+    text-decoration: none;
+}
+#NavBarLinks a,li{
+    list-style-type: none;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif
+}
+#navBar{
+    background-color: #343434;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
