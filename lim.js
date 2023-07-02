@@ -2,11 +2,6 @@
 
 },{}],2:[function(require,module,exports){
 
-
-
-
-
-
 const math = require('mathjs');
 
 let print = console.log;
@@ -75,19 +70,6 @@ function paraqitZgjidhjen(text){
   document.getElementById('textOutput').innerHTML = text;
   //document.body.appendChild(h);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -55424,10 +55406,10 @@ function createComplexEigs(_ref) {
       _step;
     try {
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var λ = _step.value;
-        var _i4 = indexOf(uniqueValues, λ, equal);
+        var lambda = _step.value;
+        var _i4 = indexOf(uniqueValues, lambda, equal);
         if (_i4 === -1) {
-          uniqueValues.push(λ);
+          uniqueValues.push(lambda);
           multiplicities.push(1);
         } else {
           multiplicities[_i4] += 1;
@@ -55450,8 +55432,8 @@ function createComplexEigs(_ref) {
     // eigenvalues for which usolve failed (due to numerical error)
     var failedLambdas = [];
     var _loop = function _loop() {
-      var λ = uniqueValues[i];
-      var S = subtract(U, multiply(λ, E)); // the characteristic matrix
+      var lambda = uniqueValues[i];
+      var S = subtract(U, multiply(lambda, E)); // the characteristic matrix
 
       var solutions = usolveAll(S, b);
       solutions.shift(); // ignore the null vector
@@ -55461,7 +55443,7 @@ function createComplexEigs(_ref) {
         var approxVec = inverseIterate(S, N, solutions, prec, type);
         if (approxVec == null) {
           // no more vectors were found
-          failedLambdas.push(λ);
+          failedLambdas.push(lambda);
           break;
         }
         solutions.push(approxVec);
