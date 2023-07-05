@@ -67,7 +67,7 @@ function solve(tentonNe,funksioni){
 }
 
 function paraqitZgjidhjen(text){
-  document.getElementById('textOutput').innerHTML = text;
+  document.getElementById('textOutput').innerHTML = "= " + text;
   //document.body.appendChild(h);
 }
 

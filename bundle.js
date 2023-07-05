@@ -16,6 +16,9 @@ canvas.width = screen.width - (screen.width*10)/100;
 
 ctx.scale(0.1,0.1);
 
+let minX = -8;
+let maxX = 8
+
 let print = console.log;
 
 let containXCount = 0;
@@ -102,13 +105,27 @@ function drawKodi(evaluatedParam){
     else{
       doesItCotainX = true;
     }
-for(let i = -8;i<8;i = i +0.01){
+    //qetu e bon (x> x<)
+    //Minx = x> , Si psh x>5 Minx =5 || MaxX = X< si psh x<10 MaxX= 10  
+    //
+    // e kqyr a ka numra me faktorial qe me i ik Error pasi ska faktorial negativ
+    if(output.includes('!')){
+      
+      minX = 0;
+      //mavon kur ta bojsh x> x< e bon qetu if (x>0){minX = x}
+    }
+for(let i = minX;i<maxX;i = i +0.01){
     //zavendson te gjitha x qe mund ti gjej ne string me i (prej -8 deri 8)
     
     output = evaluatedParam.replaceAll('x','(' + i + ')');
     //libraria mathjs e zgjedh detyren e japur ne String
     
     y = math.evaluate(output);
+    
+    if(math.isComplex(y)){
+      print("Complex Number: " + y);
+    }
+    else{
 
     if(math.evaluate(output).toFixed(4)%1==0){
       if(doesItCotainX){
@@ -129,6 +146,9 @@ for(let i = -8;i<8;i = i +0.01){
     
 
     }
+  }
+  //e kthen minX normal nqoftse ka ndryshu najsen
+  minX = -8;
     // te qekjo pjes ki me kqyr a jan tplota
     
 }
@@ -59927,7 +59947,7 @@ var createFactorial = /* #__PURE__ */(0, _factory.factory)(name, dependencies, f
   return typed(name, {
     number: function number(n) {
       if (n < 0) {
-        throw new Error('Value must be non-negative');
+        throw new Error("jo");
       }
       return gamma(n + 1);
     },
