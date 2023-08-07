@@ -1,3 +1,42 @@
 body{
     background-color: #232323;
 }
+#NavBarLinks{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    gap: 2rem;
+    text-decoration: none;
+}
+#NavBarLinks a,li{
+    list-style-type: none;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif
+}
+#navBar{
+    background-color: #343434;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#textAndButton{
+    position: fixed;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    z-index: 1;
+}
+#input{
+    margin-bottom: 10px;
+}
+#Output{
+    color: white;
+    font-size: large;
+    position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
